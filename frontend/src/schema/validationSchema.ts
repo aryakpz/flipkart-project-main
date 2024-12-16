@@ -8,6 +8,6 @@ export const validationSchema = yup.object({
 })
 
 export const LoginSchema = yup.object({
-    username: yup.object().required("Username is required"),
-    password: yup.object().required("Password is required")
+    username: yup.string().required("Username is required"),
+    password: yup.string().required("Password is required")
 })

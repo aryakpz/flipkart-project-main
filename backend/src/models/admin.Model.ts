@@ -1,7 +1,7 @@
 import { Attribute,PrimaryKey,NotNull,Unique, AutoIncrement } from "@sequelize/core/decorators-legacy";
 import { InferAttributes,InferCreationAttributes,CreationOptional,DataType, Model, DataTypes} from "@sequelize/core";
 
-export class USERTABLE extends Model <InferAttributes<USERTABLE>,InferCreationAttributes<USERTABLE>>{
+export class ADMINTABLE extends Model <InferAttributes<ADMINTABLE>,InferCreationAttributes<ADMINTABLE>>{
     @Attribute(DataTypes.INTEGER)
     @PrimaryKey
     @AutoIncrement
@@ -24,5 +24,4 @@ export class USERTABLE extends Model <InferAttributes<USERTABLE>,InferCreationAt
     @Attribute(DataTypes.STRING)
     @NotNull
     declare email:string
-
 }

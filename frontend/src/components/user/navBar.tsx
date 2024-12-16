@@ -1,6 +1,6 @@
 import React from "react";
-import { useDetailsFetch } from "../Hooks/useJsonFecth";
-import { productPropType } from "../Types/type";
+import { useDetailsFetch } from "../../Hooks/useJsonFecth";
+import { productPropType } from "../../Types/type";
 
 export const NavBar: React.FC = () => {
     const { data } = useDetailsFetch()
