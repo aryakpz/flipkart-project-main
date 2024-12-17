@@ -7,20 +7,19 @@ import { errorHandler } from "./middleware/errorHandler";
 import multer from 'multer';
 import path from "path";
 
-
 dotenv.config();
 
 (async () => {
     await dbconnection();
 })()
 const app = express();
-const cors = require("cors")
 app.use(express.json())
+const cors = require('cors');
 app.use(cors());
 app.use(errorHandler)
 app.use('/user',userRoutes)
 app.use('/admin',adminRoute)
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 
 const PORT = process.env.PORT || 5000;

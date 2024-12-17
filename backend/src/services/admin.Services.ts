@@ -1,8 +1,9 @@
 import { ADMINTABLE } from "../models/admin.Model"
-import { PRODUCTTABLE } from "../models/mobile.model";
+import { PRODUCTSTABLE } from "../models/mobile.model";
 import { USERTABLE } from "../models/user.model"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
+import { phoneProps } from "../Types/type";
 
 export const getAllUser = async () => {
     const users = await USERTABLE.findAll()
@@ -51,13 +52,62 @@ export const adminLogin = async (username: string, password: string) => {
 
 }
 
-export const addDetails = async (brand: string, ram: string, rom: string, price: number, warrenty: string, processor: string, camara: string, exchange: string, discount: string, screen: string, image: string) => {
-    const mobile = await PRODUCTTABLE.create({ brand, price, ram, rom, warrenty, processor, camara, exchange, discount, screen, image })
+// export const addDetails = async ( 
+//     name: string,
+//     color: string,
+//     brand: string,
+//     price: number,
+//     ram: string,
+//     rom: string,
+//     screen: string,
+//     frontcamera: String,
+//     backcamera: String,
+//     processor: string,
+//     warranty: string,
+//     discount: string,
+//     exchange: string,
+//     battery: string,
+//     oldprice: string,
+//     image: string) => {
+//     const mobile = await PRODUCTSTABLE.create({ 
+//         name,
+//         color,
+//         brand,
+//         price,
+//         ram,
+//         rom,
+//         screen,
+//         frontcamera,
+//         backcamera,
+//         processor,
+//         warranty,
+//         discount,
+//         exchange,
+//         battery,
+//         oldprice,
+//         image })
+//     return mobile;
+// }
+
+
+export const addDetails = async (phoneObj:phoneProps) => {
+    const mobile = await PRODUCTSTABLE.create({...phoneObj })
     return mobile;
 }
 
 export const displayProduct= async()=>{
     console.log("sdclnoe")
-    const view =await PRODUCTTABLE.findAll()
-    return view
+    const view =await PRODUCTSTABLE.findAll()
+    const newView=view.map((item)=>({
+       ...item.dataValues,
+       link:`http://localhost:5002/${item.image}`
+    }))
+    return newView
+}
+
+export const deleteProduct=async(id:string)=>{
+    const del=await PRODUCTSTABLE.destroy({
+        where:{id:id}
+    })
+return del
 }

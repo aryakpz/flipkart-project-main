@@ -35,17 +35,23 @@ export type userLoginProp = {
 }
 
 export type mobileProps = {
-    brand: string;
+    link: string ;
+    name: string;
+    color: string;
+    brand: string
+    price: number|string;
     ram: string;
     rom: string;
     screen: string;
-    camara: string;
+    frontcamera: String;
+    backcamera: String;
     processor: string;
-    warrenty: string;
-    price: string;
+    warranty: string;
     discount: string;
     exchange: string;
-    image: File| null |any| string;
+    battery: string;
+    oldprice: string;
+    image: File | null |any;
 };
 
 export type responsePropse = {

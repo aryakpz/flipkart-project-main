@@ -22,3 +22,4 @@ const storage: StorageEngine = multer.diskStorage({
 
 // Initialize multer with the storage configuration
 export const upload = multer({ storage });
+
