@@ -1,7 +1,6 @@
 export type productPropType = {
     nav: navPropType;
     drop: dropProps[];
-
 }
 
 export type navPropType = {
@@ -18,28 +17,29 @@ export type navPropType = {
     cart: string;
 };
 
-
 export type dropProps = {
     data: string;
     icon: string;
 }
+
 export type userSignProps = {
     name: string,
     email: string,
     username: string,
     password: string
 }
+
 export type userLoginProp = {
     username: string,
     password: string
 }
 
 export type mobileProps = {
-    link: string ;
+    link: string;
     name: string;
     color: string;
     brand: string
-    price: number|string;
+    price: number | string;
     ram: string;
     rom: string;
     screen: string;
@@ -51,13 +51,20 @@ export type mobileProps = {
     exchange: string;
     battery: string;
     oldprice: string;
-    image: File | null |any;
+    image: File | null | any;
 };
 
 export type responsePropse = {
     message: string;
     success: boolean;
     data: {
-        viewProduct: mobileProps[]; 
+        viewProduct: mobileProps[];
     };
 };
+
+export type filterProps = {
+    search: string;
+    brandfilter: string[];
+    ramfilter: string[];
+    romfilter: string[]
+}

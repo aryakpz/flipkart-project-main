@@ -7,8 +7,8 @@ import assure from "/assets/images/image.png"
 
 export const ViewProduct: React.FC = () => {
     const { data } = useFetchProduct();
-    console.log("datas",data)
-
+        console.log("datas",data)
+   
     return (
         <div className="flex flex-grow overflow-auto bg-white flex-col ">
             <div className="p-4 w-full box-border">
@@ -56,8 +56,8 @@ export const ViewProduct: React.FC = () => {
                                         <span className="text-gray-600  text-xs font-f-regular pr-1 tracking-normal line-through"> ₹{item.oldprice}</span>
                                         <span className="text-f-green text-xs pt-2 font-semibold font-f-semibold">{item.discount} Offer</span>
                                     </div>
-                                    <span className=" py-1 ">Free delivery</span>
-                                    <span className=" py-1 text-f-green font-f-semibold pt-[1px] font-normal  pb-[2px] ">Save extra with combo offer</span>
+                                    <span className=" py-1  text-sm">Free delivery</span>
+                                    <span className=" py-1 text-f-green font-f-semibold pt-[1px] font-normal text-sm  pb-[2px] ">Save extra with combo offer</span>
                                     <span className="text-sm  flex">Upto <p className="px-2 font-bold">₹{item.exchange} </p>off on exchange</span>
                                 </div>
                             </div>
@@ -66,4 +66,5 @@ export const ViewProduct: React.FC = () => {
             </div>
         </div>
     );
-};
+};         
+

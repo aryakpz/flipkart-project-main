@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { addAdminToDb, addDetails, adminLogin, deleteProduct, displayProduct, getAllUser } from "../services/admin.Services";
+import { addAdminToDb, addDetails, adminLogin, deleteProduct, displayProduct, filterdbdata, getAllUser } from "../services/admin.Services";
 import { hashingPassword } from "../services/user.Services";
 import { phoneProps } from "../Types/type";
 import { string } from "zod";
+import { data } from "react-router-dom";
 
 export const getUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -46,58 +47,6 @@ export const loginAdmin = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-
-// export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
-//     try {
-//         const { 
-//             name,
-//             color,
-//             brand,
-//             price,
-//             ram,
-//             rom,
-//             screen,
-//             frontcamera,
-//             backcamera,
-//             processor,
-//             warranty,
-//             discount,
-//             exchange,
-//             battery,
-//             oldprice}=req.body;
-
-//         if (!req.file) {
-//             return res.status(203).json({ message: "file is empty" })
-//         }
-//         const imagePath = req.file.path;
-       
-//         const mobile = await addDetails(
-//             name,
-//             color,
-//             brand,
-//             price,
-//             ram,
-//             rom,
-//             screen,
-//             frontcamera,
-//             backcamera,
-//             processor,
-//             warranty,
-//             discount,
-//             exchange,
-//             battery,
-//             oldprice,
-//             imagePath
-//         )
-//         return res.status(201).json({
-//             message: "Mobile added successfully",
-//             success: true,
-//             data: { mobile }
-//         })
-//     } catch (err) {
-//         next(err)
-//     }
-// }
 
 export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -145,6 +94,23 @@ export const deletedb = async (req: Request, res: Response, next: NextFunction) 
         })
 
     } catch (err) {
+        next(err)
+    }
+}
+
+export const filter=async(req:Request,res:Response,next:NextFunction)=>{
+    console.log("filter section",req.body)
+    try{
+        const values=req.body;
+        console.log(values)
+        const filterdata= await filterdbdata(values)
+        console.log("fil",filterdata)
+        return res.status(200).json({
+            message:"filterd successfully",
+            successs:true,
+            data:{filterdata}
+        })
+    }catch(err){
         next(err)
     }
 }

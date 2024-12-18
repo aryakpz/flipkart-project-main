@@ -4,6 +4,7 @@ import { USERTABLE } from "../models/user.model"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { phoneProps } from "../Types/type";
+import { Op, Value } from "@sequelize/core";
 
 export const getAllUser = async () => {
     const users = await USERTABLE.findAll()
@@ -30,11 +31,11 @@ export const adminLogin = async (username: string, password: string) => {
     if (!passwordCheck) {
         throw new Error("Invlid password")
     }
-    
+
     if (!process.env.ADMIN_KEY) {
         throw new Error("Something went wrong,key is not available!")
     }
-    
+
     const token = jwt.sign(
         {
             admin: {
@@ -49,65 +50,48 @@ export const adminLogin = async (username: string, password: string) => {
         username: admin.username,
         token: token
     }
-
 }
 
-// export const addDetails = async ( 
-//     name: string,
-//     color: string,
-//     brand: string,
-//     price: number,
-//     ram: string,
-//     rom: string,
-//     screen: string,
-//     frontcamera: String,
-//     backcamera: String,
-//     processor: string,
-//     warranty: string,
-//     discount: string,
-//     exchange: string,
-//     battery: string,
-//     oldprice: string,
-//     image: string) => {
-//     const mobile = await PRODUCTSTABLE.create({ 
-//         name,
-//         color,
-//         brand,
-//         price,
-//         ram,
-//         rom,
-//         screen,
-//         frontcamera,
-//         backcamera,
-//         processor,
-//         warranty,
-//         discount,
-//         exchange,
-//         battery,
-//         oldprice,
-//         image })
-//     return mobile;
-// }
-
-
-export const addDetails = async (phoneObj:phoneProps) => {
-    const mobile = await PRODUCTSTABLE.create({...phoneObj })
+export const addDetails = async (phoneObj: phoneProps) => {
+    const mobile = await PRODUCTSTABLE.create({ ...phoneObj })
     return mobile;
 }
 
-export const displayProduct= async()=>{
+export const displayProduct = async () => {
     console.log("sdclnoe")
-    const view =await PRODUCTSTABLE.findAll()
-    const newView=view.map((item)=>({
-       ...item.dataValues,
-       link:`http://localhost:5002/${item.image}`
+    const view = await PRODUCTSTABLE.findAll()
+    const newView = view.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}`
     }))
     return newView
 }
 
-export const deleteProduct=async(id:string)=>{
-    const del=await PRODUCTSTABLE.destroy({
-        where:{id:id}
+export const deleteProduct = async (id: string) => {
+    const del = await PRODUCTSTABLE.destroy({
+        where: { id: id }
     })
-return del
+    return del
 }
+
+
+export const filterdbdata = async (values: { values?: string[] }) => {
+    const filterQuery: any = {};
+    // Validate input and check if there are valid values
+    if (values?.values && Array.isArray(values.values) && values.values.length > 0) {
+        // Create an array of conditions for each brand with Op.iLike
+        filterQuery.brand = {
+            [Op.or]: values.values.map(value => ({  
+                [Op.iLike]: `%${value}%`
+            }))
+        };
+    } else {
+        return [];
+    }
+    const filteredProducts = await PRODUCTSTABLE.findAll({
+        where: filterQuery,
+    });
+    return filteredProducts;
+};
+
+
