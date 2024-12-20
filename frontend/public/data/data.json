@@ -1,0 +1,55 @@
+[
+    {
+        "nav": {
+            "fliplogo": "https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/flipkart-plus_8d85f4.png",
+            "explore": "Explore",
+            "plus": "Plus",
+            "plogo": "assets/images/plus.png",
+            "search": "assets/icons/searchsmall.svg",
+            "login": "Login",
+            "seller": "Become a Seller",
+            "more": "More ",
+            "down": "assets/icons/angle-down-solid.svg",
+            "cartimg": "assets/icons/cart.svg",
+            "cart": "Cart"
+        },
+        "drop": [
+            {
+                "data": "Electronics",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "TVs & Appliances",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Men",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Women",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Baby & Kids",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Home & Furniture",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Sports, Books & More",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Flights",
+                "icon": "assets/icons/angle-down-solid.svg"
+            },
+            {
+                "data": "Offer Zone",
+                "icon": "assets/icons/angle-down-solid.svg"
+            }
+        ]
+    }
+]

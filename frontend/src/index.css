@@ -1,3 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: "italic";
+  src: url("assets/fonts/Inter-Italic.woff2");
+}
+
+@font-face {
+  font-family: "medium";
+  src: url("assets/fonts/inter_Inter-Medium.woff");
+}
+
+@font-face {
+  font-family: "regular";
+  src: url("assets/fonts/Inter-Regular.woff2");
+}
+
+@font-face {
+  font-family: "semibold";
+  src: url("assets/fonts/Inter-SemiBold.woff2");
+}
+
+@font-face {
+  font-family: "semiitalic";
+  src: url("assets/fonts/Inter-SemiBoldItalic.woff2");
+}
+
+
+.hide-last-two-images span:nth-last-child(1) img,
+.hide-last-two-images span:nth-last-child(2) img {
+  display: none;
+}
+
+.adjust-last-child span:nth-last-child(1) {
+  margin-left: 1px;
+}
