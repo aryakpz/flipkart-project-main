@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { addAdminToDb, addDetails, adminLogin, deleteProduct, displayProduct, filterdbdata, getAllUser } from "../services/admin.Services";
+import { addAdminToDb, addDetails, adminLogin, deleteProduct, displayProduct, filterdbdata, getAllUser, sortingDb } from "../services/admin.Services";
 import { hashingPassword } from "../services/user.Services";
-import { phoneProps } from "../Types/type";
-import { string } from "zod";
-import { data } from "react-router-dom";
 
 export const getUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -47,17 +44,15 @@ export const loginAdmin = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-
 export const addProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const body=req.body;
-
+        const body = req.body;
         if (!req.file) {
             return res.status(203).json({ message: "file is empty" })
         }
         const imagePath = req.file.path;
-        body.image=imagePath
-       
+        body.image = imagePath
+
         const mobile = await addDetails(body)
         return res.status(201).json({
             message: "Mobile added successfully",
@@ -77,7 +72,6 @@ export const viewProduct = async (req: Request, res: Response, next: NextFunctio
             success: true,
             data: { viewProduct }
         })
-
     } catch (err) {
         next(err)
     }
@@ -85,32 +79,44 @@ export const viewProduct = async (req: Request, res: Response, next: NextFunctio
 
 export const deletedb = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {id}=req.params;
+        const { id } = req.params;
         const viewProduct = await deleteProduct(id)
         return res.status(201).json({
             message: "successfuly",
             success: true,
             data: { viewProduct }
         })
-
     } catch (err) {
         next(err)
     }
 }
 
-export const filter=async(req:Request,res:Response,next:NextFunction)=>{
-    console.log("filter section",req.body)
-    try{
-        const values=req.body;
-        console.log(values)
-        const filterdata= await filterdbdata(values)
-        console.log("fil",filterdata)
+export const filter = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const values = req.body;
+        const filterdata = await filterdbdata(values)
         return res.status(200).json({
-            message:"filterd successfully",
-            successs:true,
-            data:{filterdata}
+            message: "filterd successfully",
+            successs: true,
+            data: { filterdata }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const sort=async (req:Request,res:Response,next:NextFunction)=>{
+   
+    try{
+        const {id}=req.body;
+        const resp= await sortingDb(id);
+        return res.status(200).json({
+            message:"sorted successfully",
+            success:true,
+            data:resp
         })
     }catch(err){
         next(err)
     }
+
 }
