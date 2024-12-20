@@ -1,8 +1,6 @@
-import { addAdmin, addProduct, deletedb, filter, getUser, loginAdmin, viewProduct } from "../controllers/adminController"
-import { loginAuthentication } from "../middleware/LoginAuthentication";
+import { addAdmin, addProduct, deletedb, filter, getUser, loginAdmin, sort, viewProduct } from "../controllers/adminController"
 import { SigninValidation } from "../middleware/validaitonMiddleware";
 import { AdminSchema } from "../schema/admin.Schema";
-import { adminLogin } from "../services/admin.Services";
 import { upload } from "../uploads";
 
 const express=require("express");
@@ -15,4 +13,5 @@ const express=require("express");
  adminRoute.post('/addProduct',upload.single('image'),addProduct)
  adminRoute.get('/viewProduct',viewProduct)
  adminRoute.delete('/delete/:id',deletedb)
+ adminRoute.post('/sort',sort)
  adminRoute.post('/filter',filter)

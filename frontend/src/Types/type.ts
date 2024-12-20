@@ -64,7 +64,12 @@ export type responsePropse = {
 
 export type filterProps = {
     search: string;
-    brandfilter: string[];
-    ramfilter: string[];
-    romfilter: string[]
+    brand: string[];
+    ram: string[];
+    rom: string[]
+}
+export type sortprops={
+    name:string,
+    class:string,
+    id:string
 }

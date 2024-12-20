@@ -58,7 +58,6 @@ export const addDetails = async (phoneObj: phoneProps) => {
 }
 
 export const displayProduct = async () => {
-    console.log("sdclnoe")
     const view = await PRODUCTSTABLE.findAll()
     const newView = view.map((item) => ({
         ...item.dataValues,
@@ -75,23 +74,78 @@ export const deleteProduct = async (id: string) => {
 }
 
 
-export const filterdbdata = async (values: { values?: string[] }) => {
+//=============================== data filtering section ====================================//
+
+export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; rom?: string[] }) => {
     const filterQuery: any = {};
-    // Validate input and check if there are valid values
-    if (values?.values && Array.isArray(values.values) && values.values.length > 0) {
-        // Create an array of conditions for each brand with Op.iLike
+
+    // Check if brand is passed and is an array
+    if (values?.brand && Array.isArray(values.brand) && values.brand.length > 0) {
         filterQuery.brand = {
-            [Op.or]: values.values.map(value => ({  
+            [Op.or]: values.brand.map(value => ({
                 [Op.iLike]: `%${value}%`
             }))
         };
-    } else {
-        return [];
     }
+
+    // Check if ram is passed and is an array
+    if (values?.ram && Array.isArray(values.ram) && values.ram.length > 0) {
+        filterQuery.ram = {
+            [Op.or]: values.ram.map(ram => ({
+                [Op.iLike]: `%${ram}%`
+            }))
+        };
+    }
+
+    // Check if rom is passed and is an array
+    if (values?.rom && Array.isArray(values.rom) && values.rom.length > 0) {
+        filterQuery.rom = {
+            [Op.or]: values.rom.map(rom => ({
+                [Op.iLike]: `%${rom}%`
+            }))
+        };
+    }
+
     const filteredProducts = await PRODUCTSTABLE.findAll({
         where: filterQuery,
+        // Optionally, you can add limit or pagination here if needed
     });
-    return filteredProducts;
+    const newdata = filteredProducts.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}`
+    })
+    )
+    return newdata; 
+
 };
 
 
+
+export const sortingDb = async (id: string) => {
+    let result: Array<[string, 'ASC' | 'DESC']> = [];
+  
+    switch (id) {
+      case "low":
+        result = [['price', 'ASC']];
+        break;
+      case "high":
+        result = [['price', 'DESC']];
+        break;
+      case "new":
+        result=[['createdAt','DESC']]
+        break;
+      default:
+        result = []; 
+    }
+      const products = await PRODUCTSTABLE.findAll({
+        order: result
+      });
+                                       
+      const newres = products.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}` 
+      }));
+  
+      return newres;
+  };
+  
