@@ -50,6 +50,12 @@
                 "data": "Offer Zone",
                 "icon": "assets/icons/angle-down-solid.svg"
             }
-        ]
+        ],
+        "common":{
+            "star":"assets/icons/whitestar.svg",
+            "heart":"assets/icons/heart.svg",
+            "assure":"https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png"
+              
+        }
     }
 ]

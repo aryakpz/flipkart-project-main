@@ -10,7 +10,9 @@ export default {
         'flip-blue': '#2874f0;',
         'yellow':'#ffe500;',
         'bg-white':'#fdfdfa',
-        'text-color':'#111110'
+        'text-color':'#111110',
+        'f-green':'#388e3c',
+        'grey':'878787'
 
       },
       zIndex: {
