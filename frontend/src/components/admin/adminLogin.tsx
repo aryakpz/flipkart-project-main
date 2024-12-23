@@ -4,7 +4,7 @@ import { LoginSchema } from "../../schema/validationSchema";
 import { useAdminLogin } from "../../Hooks/useAdminLogin";
 
 export const AdminLogin: React.FC = () => {
-    const {adminLogin}=useAdminLogin()
+    const { adminLogin } = useAdminLogin()
     const initialValues = {
         username: "",
         password: "",
@@ -48,6 +48,7 @@ export const AdminLogin: React.FC = () => {
                     </div>
                 </Form>
             </Formik>
+            
         </div>
 
     )

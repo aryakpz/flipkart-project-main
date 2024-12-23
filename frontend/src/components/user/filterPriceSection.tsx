@@ -35,22 +35,20 @@ export const PriceFilter: React.FC = () => {
                         <div className="flex text-center  w-full pt-2 justify-between p-2 text-sm font-f-regular ">
                             <div className="">
                                 <select className="bg-white border p-1 w-24">
-                                    {item.filter.min.map((i:string)=>(
-                                       <option value={i}>{i}</option>
+                                    {item.filter.min.map((i: string) => (
+                                        <option value={i}>{i}</option>
                                     ))}
-                                   
                                 </select>
                             </div>
                             <div>to</div>
                             <div>
-                                <select className="bg-white border p-1 w-24">     
-                                    {item.filter.max.map((i:string)=>(
+                                <select className="bg-white border p-1 w-24">
+                                    {item.filter.max.map((i: string) => (
                                         <option value={i}>{i}</option>
-                                    ))}        
+                                    ))}
 
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -58,4 +56,3 @@ export const PriceFilter: React.FC = () => {
         </div>
     )
 }
-

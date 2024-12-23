@@ -28,7 +28,7 @@ export const RightSection: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <SortSection/>
+                    <SortSection />
                 </React.Fragment>
                 <ViewProduct />
             </div>

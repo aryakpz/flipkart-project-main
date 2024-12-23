@@ -5,10 +5,10 @@ import { useSortSection } from "../../Hooks/useSortSection";
 import { useFilterContext } from "../../context/useContext";
 
 export const SortSection: React.FC = () => {
-    const[active,setActive]=useState<string |null>(null)
+    const [active, setActive] = useState<string | 'relevance'>('relevance')
     const { data } = useDetailsFetch();
     const { sortProduct } = useSortSection()
-    const {filteredData, setFilteredData } = useFilterContext()
+    const { filteredData, setFilteredData } = useFilterContext()
     const item = data?.data[0];
     const link = item?.link;
     const handleclick = async (id: string) => {
@@ -24,12 +24,10 @@ export const SortSection: React.FC = () => {
             <div>
                 <span className="text-sm font-normal mr-5">Sort By </span>
                 {link?.map((item: sortprops, index: number) => (
-                    <span className={`text-sm font-normal pb-[9px] cursor-pointer mr-5  active:font-f-medium active:text-flip-blue active:border-flip-blue ${active === item.id ? "text-flip-blue font-f-semibold border-b-2 border-flip-blue":""}`} key={index} onClick={() => handleclick(item.id)}>{item.name}</span>
+                    <span className={`text-sm font-normal pb-[9px] cursor-pointer mr-5  active:font-f-medium active:text-flip-blue active:border-flip-blue ${active === item.id ? "text-flip-blue font-f-semibold border-b-2 border-flip-blue" : ""}`}
+                        key={index} onClick={() => handleclick(item.id)}>{item.name}</span>
                 ))}
             </div>
         </div>
     )
-}
-
-
-                       
+}                            

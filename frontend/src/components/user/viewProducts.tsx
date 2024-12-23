@@ -1,18 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { mobileProps } from "../../Types/type";
 import star from "/assets/icons/whitestar.svg";
 import heart from "/assets/icons/heart.svg";
 import assure from "/assets/images/image.png"
 import { useFilterContext } from "../../context/useContext";
-export const ViewProduct: React.FC = () => {
+import { useNavigate } from "react-router-dom";
+import { PaginationControls } from "./paginationSection";
 
-    const {filteredData}=useFilterContext()
+export const ViewProduct: React.FC = () => {
+    const nav = useNavigate()
+    const { filteredData } = useFilterContext()
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 1;
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+    const produts = filteredData.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
+
+    const handlePrevious = () => {
+        if (currentPage > 1) {
+            setCurrentPage((prevPage) => prevPage - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
+
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div className="flex flex-grow overflow-auto bg-white flex-col ">
             <div className="p-4 w-full box-border">
-                {filteredData && filteredData.map((item: mobileProps, index: number) => (
-                    <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular ">
+                {produts && produts.map((item: mobileProps, index: number) => (
+                    <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular " onClick={() => { nav('/singlePage', { state: item }) }}>
                         <div className="relative w-52 ">
                             <div className="w-52 h-52 mx-auto relative">
                                 <img className=" absolute b-0 t-0 l-0 r-0 max-w-full max-h-full  opacity-100 mx-auto" alt={item.link} src={item.link} />
@@ -63,11 +91,20 @@ export const ViewProduct: React.FC = () => {
                     </div>
                 ))}
             </div>
+
+            <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+                onPageChange={handlePageChange}
+            />
+
         </div>
     );
 };
 
- 
+
 
 
 

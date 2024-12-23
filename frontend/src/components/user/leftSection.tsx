@@ -7,12 +7,12 @@ import { useFilterContext } from "../../context/useContext";
 
 export const LeftSection: React.FC = () => {
     const { data } = useFetchProduct();
-    const { data: detailsdata } = useDetailsFetch()
+    const { data: detailsdata } = useDetailsFetch();
     const { filter } = useFilter();
     const { setFilteredData } = useFilterContext();
 
     const [selectedFilters, setSelectedFilters] = useState({
-        brand: [] as string[],
+        brand: [] as string[],  
         ram: [] as string[],
         rom: [] as string[],
     });
@@ -20,13 +20,13 @@ export const LeftSection: React.FC = () => {
     const Brands = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.brand))
     );
-    const ramOptions = Array.from(
+    const ramOptions = Array.from(                                
         new Set(data?.viewProduct?.flatMap((item) => item.ram))
     );
     const romOptions = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.rom))
     );
-
+                            
     const handleCheckboxChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         category: "brand" | "ram" | "rom"
@@ -64,6 +64,9 @@ export const LeftSection: React.FC = () => {
         ) {
             fetchFilteredData();
         }
+        // else {                                                                                
+        //     setFilteredData(data?.viewProduct || [])   
+        // }                                                          
     }, [selectedFilters, filter, setFilteredData]);
 
     return (
@@ -144,5 +147,6 @@ export const LeftSection: React.FC = () => {
             ))}
         </div>
     );
-};
+}
+
 

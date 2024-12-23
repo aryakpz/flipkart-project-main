@@ -7,14 +7,14 @@ export const AddProduct: React.FC = () => {
     const {addProducts}=useAddProducts()
     const initialValues = {
         name: '',
-        color: '',
+        color: '',    
         brand: '',
         price: '',
-        ram: '',
+        ram: '',   
         rom: '',
         screen: '',
         frontcamera: '',
-        backcamera: '',
+        backcamera: '',   
         processor: '',
         warranty: '',
         discount: '',
@@ -22,15 +22,13 @@ export const AddProduct: React.FC = () => {
         image: null,
         battery: '',
         oldprice: '',
-    }
+    }     
 
-    const onSubmit = async (values: any) => {
+    const onSubmit = async (values: any) => {                        
          console.log(values,"form")
             await addProducts(values); 
     };
     
-
-
     return (
         <div className="flex flex-col p-20 font-f-semibold max-w-3xl w-full m-auto">
             <h1 className="text-flip-blue text-3xl text-center p-6">Add Product details</h1>
@@ -124,8 +122,7 @@ export const AddProduct: React.FC = () => {
             </Formik>
         </div>
     );
-}
-
-
+}   
+     
 
 
