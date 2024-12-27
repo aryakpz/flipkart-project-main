@@ -85,38 +85,46 @@ export const deletedb = async (req: Request, res: Response, next: NextFunction) 
             message: "successfuly",
             success: true,
             data: { viewProduct }
-        })
+        })                             
     } catch (err) {
         next(err)
-    }
+    }       
 }
-
+                           
 export const filter = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const values = req.body;
         const filterdata = await filterdbdata(values)
         return res.status(200).json({
-            message: "filterd successfully",
+            message: "filterd successfully",        
             successs: true,
             data: { filterdata }
-        })
+        })           
     } catch (err) {
         next(err)
-    }
-}
-
+    }                                
+}       
+      
 export const sort=async (req:Request,res:Response,next:NextFunction)=>{
-   
-    try{
+    try{             
         const {id}=req.body;
         const resp= await sortingDb(id);
-        return res.status(200).json({
+        return res.status(200).json({           
             message:"sorted successfully",
-            success:true,
+            success:true,          
             data:resp
-        })
-    }catch(err){
-        next(err)
+        })                                         
+    }catch(err){            
+        next(err)       
     }
+}      
 
+export const search = async (req:Request,res:Response,next:NextFunction)=>{
+    const val=req.body
+    console.log(val,"njjkj",req.body.q)
 }
+
+
+    
+  
+ 

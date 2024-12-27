@@ -5,26 +5,27 @@ import icon from "/assets/icons/angle-right-solid.svg";
 import star from "/assets/icons/whitestar.svg";
 import asure from "/assets/images/image.png";
 
-type right = {
+type right = { 
     val: string,
     icon: string
 }
 
 export const SingleProductPage: React.FC = () => {
-    const loc = useLocation()
-    const nav = useNavigate()
+    const loc = useLocation();
+    const nav = useNavigate();
     const { data } = useDetailsFetch();
     const details = data?.data[0]
     const right = details?.right;
     const item = loc.state;
+    
     const buttonClick = () => {
         sessionStorage.setItem("prevPage", location.pathname);
-        const token = sessionStorage.getItem("token")
-        if (!token) {
-            nav('/login')
-        }
+        const token = sessionStorage.getItem("token");          
+        if (!token) {       
+            nav('/login')                             
+        }                      
         else {
-            nav('/sign')
+            nav('/sign')                                                      
         }
     }
 
@@ -92,4 +93,4 @@ export const SingleProductPage: React.FC = () => {
 }
 //f=w-m*a 
 
-
+                             

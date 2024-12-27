@@ -12,7 +12,7 @@ export const LeftSection: React.FC = () => {
     const { setFilteredData } = useFilterContext();
 
     const [selectedFilters, setSelectedFilters] = useState({
-        brand: [] as string[],  
+        brand: [] as string[],
         ram: [] as string[],
         rom: [] as string[],
     });
@@ -20,13 +20,13 @@ export const LeftSection: React.FC = () => {
     const Brands = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.brand))
     );
-    const ramOptions = Array.from(                                
+    const ramOptions = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.ram))
     );
     const romOptions = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.rom))
     );
-                            
+
     const handleCheckboxChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         category: "brand" | "ram" | "rom"
@@ -64,13 +64,13 @@ export const LeftSection: React.FC = () => {
         ) {
             fetchFilteredData();
         }
-        // else {                                                                                
-        //     setFilteredData(data?.viewProduct || [])   
-        // }                                                          
-    }, [selectedFilters, filter, setFilteredData]);
+        // else {
+        //     setFilteredData(data?.viewProduct || filteredData)
+        // }
+    }, [selectedFilters, filter, data]);
 
     return (
-        <div className="bg-white mr-2 mt-2">
+        <div className="bg-white mr-2 mt-2 h-fit ">
 
             {detailsdata?.data.map((d: any) => (
                 <React.Fragment>
@@ -148,5 +148,7 @@ export const LeftSection: React.FC = () => {
         </div>
     );
 }
+
+
 
 

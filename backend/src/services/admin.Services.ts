@@ -79,7 +79,7 @@ export const deleteProduct = async (id: string) => {
 export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; rom?: string[] }) => {
     const filterQuery: any = {};
 
-    // Check if brand is passed and is an array
+    
     if (values?.brand && Array.isArray(values.brand) && values.brand.length > 0) {
         filterQuery.brand = {
             [Op.or]: values.brand.map(value => ({
@@ -88,7 +88,6 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
         };
     }
 
-    // Check if ram is passed and is an array
     if (values?.ram && Array.isArray(values.ram) && values.ram.length > 0) {
         filterQuery.ram = {
             [Op.or]: values.ram.map(ram => ({
@@ -97,7 +96,6 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
         };
     }
 
-    // Check if rom is passed and is an array
     if (values?.rom && Array.isArray(values.rom) && values.rom.length > 0) {
         filterQuery.rom = {
             [Op.or]: values.rom.map(rom => ({
@@ -108,7 +106,6 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
 
     const filteredProducts = await PRODUCTSTABLE.findAll({
         where: filterQuery,
-        // Optionally, you can add limit or pagination here if needed
     });
     const newdata = filteredProducts.map((item) => ({
         ...item.dataValues,

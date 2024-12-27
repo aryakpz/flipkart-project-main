@@ -14,7 +14,6 @@ export const SortSection: React.FC = () => {
     const handleclick = async (id: string) => {
         setActive(id)
         const sortdata = await sortProduct(id)
-        console.log(sortdata);
         setFilteredData(sortdata);
     };
 
@@ -31,3 +30,5 @@ export const SortSection: React.FC = () => {
         </div>
     )
 }                            
+
+

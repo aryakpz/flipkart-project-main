@@ -12,19 +12,19 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const { data } = useFetchProduct()
   const [filteredData, setFilteredData] = useState<any[]>([]);
 
-  useEffect(() => {
+  useEffect(() => {         
     if (data?.viewProduct ) {
       setFilteredData(data?.viewProduct);
     }
-  }, [data]);
-
+  }, [data]);           
+              
   return (
     <FilterContext.Provider value={{ filteredData, setFilteredData }}>
       {children}
-    </FilterContext.Provider>
-  );
+    </FilterContext.Provider> 
+  ); 
 };
-
+                                           
 export const useFilterContext = () => {
   const context = useContext(FilterContext);
   if (!context) {
@@ -32,5 +32,3 @@ export const useFilterContext = () => {
   }
   return context;
 };
-
-
