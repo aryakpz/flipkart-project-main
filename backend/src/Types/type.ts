@@ -1,3 +1,11 @@
+export type adminProps = {
+    name: string,
+    email: string,
+    username: string,
+    password: string
+}
+
+
 export type phoneProps = {
     name: string
     color: string
@@ -16,4 +24,16 @@ export type phoneProps = {
     battery: string
     oldprice: string
 }
+
+
+export type ordeProps = {
+    user: string
+    id: number
+    name: string
+    price: number
+    count: number,
+    newPrice: number
+    change: string;
+}
+
 

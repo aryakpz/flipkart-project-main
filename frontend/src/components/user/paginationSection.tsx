@@ -16,7 +16,7 @@ export const PaginationControls: React.FC<PaginationProps> = ({
     onPageChange,
 }) => {
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-             console.log(currentPage,totalPages)
+    
     return (                                
         <div className="pages block p-6">           
             <div className="flex justify-between items-center">

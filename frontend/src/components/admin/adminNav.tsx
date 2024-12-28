@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 export const AdminNav: React.FC = () => {
     const nav=useNavigate()
+ 
     return (
         <div className="w-full h-10 bg-black f">
             <div className="flex px-6 justify-between">

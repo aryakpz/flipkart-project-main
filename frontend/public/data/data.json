@@ -135,6 +135,12 @@
             "img": "https://static-assets-we…earch-results_2353c5.png",
             "sorry": "Sorry, no results found!",
             "please": "Please check the spelling for something else"
-        }
+        },
+        "payment":[
+            "Cash On Delivery","UPI Payment","Paytm Postpaid","Credit card or Debit Card","E-gift Voucher","Wallet","Flipkart Pay Later"
+        ],
+        "table":[
+            "id","User Name","Product_id","Product_Name","Price","Quantity","Total Amount","Payment Method"
+        ]
     }
 ]
