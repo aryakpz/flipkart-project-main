@@ -29,6 +29,6 @@ export const SortSection: React.FC = () => {
             </div>
         </div>
     )
-}                            
+}
 
 

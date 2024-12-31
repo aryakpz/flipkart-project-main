@@ -7,7 +7,7 @@ type right = {
     val: string,
     icon: string
 }
-                     
+
 export const RightSection: React.FC = () => {
     const { data } = useDetailsFetch();
     const item = data?.data[0]

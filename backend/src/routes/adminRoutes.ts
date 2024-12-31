@@ -1,20 +1,17 @@
-import { addAdmin, addProduct, dashBoard, deletedb, filter, getUser, loginAdmin, order, search, sort, viewProduct } from "../controllers/adminController"
+import {  addProduct, addUser, dashBoard, deletedb, order, userLogin } from "../controllers/adminController"
+import { MobileValidation } from "../middleware/mobileValidation";
+import { authRole } from "../middleware/roleAutherisation";
+import { authenticateUser } from "../middleware/userTokenValidation";
 import { SigninValidation } from "../middleware/validaitonMiddleware";
-import { AdminSchema } from "../schema/admin.Schema";
+import { MobileSchema } from "../schema/mobile.schema";
+import { UsersLogin, UsersSchema } from "../schema/users.schema";
 import { upload } from "../uploads";
-
 const express=require("express");
 
  export const adminRoute=express.Router()
-
- adminRoute.get('/users',getUser)
- adminRoute.post('/sign',SigninValidation(AdminSchema),addAdmin)
- adminRoute.post('/login',loginAdmin)
- adminRoute.post('/addProduct',upload.single('image'),addProduct)
- adminRoute.get('/viewProduct',viewProduct)
- adminRoute.delete('/delete/:id',deletedb)
- adminRoute.post('/sort',sort)
- adminRoute.post('/filter',filter)
- adminRoute.post('/search',search)
+ adminRoute.post('/addProduct',authenticateUser,authRole("admin"),upload.single('image'),addProduct)
+ adminRoute.delete('/delete/:id',authenticateUser,authRole("admin"),deletedb)
  adminRoute.post('/order',order)
- adminRoute.get('/dashboard',dashBoard)
+ adminRoute.get('/dashboard',dashBoard)          
+ adminRoute.post('/sign',SigninValidation(UsersSchema),addUser)
+ adminRoute.post('/login',SigninValidation(UsersLogin),userLogin)

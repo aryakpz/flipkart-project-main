@@ -2,7 +2,6 @@ import React from "react";
 import { NavBar } from "./navBar";
 import { DropDown } from "./dropDown";
 import { BodySection } from "./bodySection";
-// import { LogOut } from "../outlet";
 
 export const MainPage: React.FC = () => {
     return (
@@ -12,9 +11,6 @@ export const MainPage: React.FC = () => {
             <DropDown />
             <BodySection/>
         </div>
-        {/* <div>
-            <LogOut/>
-        </div>           */}
        </>
     )
 }  

@@ -11,3 +11,12 @@ export const LoginSchema = yup.object({
     username: yup.string().required("Username is required"),
     password: yup.string().required("Password is required")
 })
+
+
+
+export const useSignSchema = yup.object({
+
+    username: yup.string().required("Username is required"),
+    password: yup.string().required("Password is required"),
+    role: yup.string().oneOf(["admin", "user"]).required("Role is required"),
+})

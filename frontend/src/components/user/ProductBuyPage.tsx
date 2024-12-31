@@ -18,7 +18,6 @@ export const ProductBuyPage: React.FC = () => {
     const [change, setChange] = useState<string>("")
     const  user=sessionStorage.getItem('name')
 
-
     const handleClick = (key: "inc" | "dec", price: number) => {
         if (key === "inc") {
             setCount((prev) => prev + 1);
@@ -33,14 +32,12 @@ export const ProductBuyPage: React.FC = () => {
         const values = e.target.value
         setChange(values)
     }
-    
 
     const orderClick = (id:number, name:string,price:number, count:number, newPrice:number) => {
-
         orderplaced({
             user,id,name,price,count,newPrice,change
         })
-    }
+    }           
     return (
         <div className="flex flex-col">
             <NavBar />

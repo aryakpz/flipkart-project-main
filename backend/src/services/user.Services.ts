@@ -1,42 +1,92 @@
-import bcrypt from "bcrypt";
-import { USERTABLE } from "../models/user.model";
-import jwt from "jsonwebtoken"
+import { PRODUCTSTABLE } from "../models/mobile.model";
+import { Op } from "@sequelize/core";
 
-export const hashingPassword = async (password: string) => {
-    const newPass = await bcrypt.hash(password, 8)
-    return newPass
+export const displayProduct = async () => {
+    const view = await PRODUCTSTABLE.findAll()
+    const newView = view.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}`
+    }))
+    return newView
 }
 
-export const addUserToDb = async (name: string, email: string, username: string, password: string) => {
-    const insert = await USERTABLE.create({ name, email, username, password })
-    return insert
+export const getSingleProduct = async (id: any) => {
+    const result = await PRODUCTSTABLE.findOne({
+        where: { id: id }
+    })
+    if (!result) {
+        return null;
+    }
+    const newResult =
+        { ...result.dataValues, link: `http://localhost:5002/${result.image}` }
+    return newResult
 }
 
-export const getSingleUser = async (username: string, password: string) => {
-    const user = await USERTABLE.findOne({ where: { username: username } })
-    if (!user) {
-        throw new Error ("user not found" )
-    }
-    const passwordCheck = await bcrypt.compare(password, user.password)
-    if (!passwordCheck) {
-        throw new Error ("Invalid Password" )
-    }
-    if (!process.env.JWT_KEY) {
-        throw new Error(" something went wrong!")
-    }
-    const token = jwt.sign(
-        {
-            user: {
-                username: user.username,
-                id: user.id
-            },
-        },
-        process.env.JWT_KEY,
-        { expiresIn: "2h" }
-    );
-    return {
-        username: user.username,
-        token: token
+export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; rom?: string[]; price?: { min: number; max: number } }) => {
+    const filterQuery: any = {};
+
+    if (values?.brand && Array.isArray(values.brand) && values.brand.length > 0) {
+        filterQuery.brand = {
+            [Op.or]: values.brand.map(value => ({
+                [Op.iLike]: `%${value}%`
+            }))
+        };
     }
 
-}
+    if (values?.ram && Array.isArray(values.ram) && values.ram.length > 0) {
+        filterQuery.ram = {
+            [Op.or]: values.ram.map(ram => ({
+                [Op.iLike]: `%${ram}%`
+            }))
+        };
+    }
+
+    if (values?.rom && Array.isArray(values.rom) && values.rom.length > 0) {
+        filterQuery.rom = {
+            [Op.or]: values.rom.map(rom => ({
+                [Op.iLike]: `%${rom}%`
+            }))
+        };
+    }
+
+    const filteredProducts = await PRODUCTSTABLE.findAll({
+        where: filterQuery,
+    });
+
+    const newdata = filteredProducts.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}`
+    }))
+    return newdata;
+};
+
+export const sortingDb = async (id: string) => {
+    let result: Array<[string, 'ASC' | 'DESC']> = [];
+
+    switch (id) {
+        case "low":
+            result = [['price', 'ASC']];
+            break;
+        case "high":
+            result = [['price', 'DESC']];
+            break;
+        case "new":
+            result = [['createdAt', 'DESC']]
+            break;
+        default:
+            result = [];
+    }
+    const products = await PRODUCTSTABLE.findAll({
+        order: result
+    });
+
+    const newres = products.map((item) => ({
+        ...item.dataValues,
+        link: `http://localhost:5002/${item.image}`
+    }));
+
+    return newres;
+};
+
+
+

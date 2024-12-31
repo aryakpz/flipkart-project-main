@@ -15,6 +15,7 @@ export const LeftSection: React.FC = () => {
         brand: [] as string[],
         ram: [] as string[],
         rom: [] as string[],
+        price: { min: 0, max: 0 },
     });
 
     const Brands = Array.from(
@@ -45,42 +46,49 @@ export const LeftSection: React.FC = () => {
                 );
             }
             return updatedFilters;
-        });
+        })
     };
 
-    useEffect(() => {
+    const handlePriceChange = (min: number, max: number) => {
+        setSelectedFilters((prev) => ({
+            ...prev,
+            price: { min, max }
+        }));
+    }; 
+                                       
+    useEffect(() => {                               
         const fetchFilteredData = async () => {
-            const response = await filter(selectedFilters);
-            if (response) {
-                setFilteredData(response?.data?.filterdata);
-            } else {
-                console.error("Filter API call failed:", response.message);
+            if (
+                selectedFilters.brand.length ||
+                selectedFilters.ram.length ||
+                selectedFilters.rom.length ||
+                (selectedFilters.price.min && selectedFilters.price.max)
+            ) {
+                const response = await filter(selectedFilters);
+                if (response) {
+                    setFilteredData(response?.data?.filterdata);
+                } else {
+                    console.error("Filter API call failed:", response.message);
+                }
             }
         };
-        if (
-            selectedFilters.brand.length ||
-            selectedFilters.ram.length ||
-            selectedFilters.rom.length
-        ) {
-            fetchFilteredData();
-        }
-        // else {
-        //     setFilteredData(data?.viewProduct || filteredData)
-        // }
-    }, [selectedFilters, filter, data]);
+        fetchFilteredData();
+    }, [selectedFilters, filter]);
 
     return (
-        <div className="bg-white mr-2 mt-2 h-fit ">
-
+        <div className="bg-white mr-2 mt-2 h-fit">
             {detailsdata?.data.map((d: any) => (
-                <React.Fragment>
-
+                <React.Fragment key={d.filter.id}>
                     {/* Brand Section */}
                     <div className="flex flex-shrink-0 flex-grow-0 w-[280px] flex-col max-w-[280px] gap-1 p-4 border-b">
-                        <PriceFilter />
+                        <PriceFilter handlePriceChange={handlePriceChange} />
                         <h3 className="font-f-medium text-[13px] pb-1">{d.filter.brand}</h3>
                         <div className="flex border-b">
-                            <img src={d.filter.bimg} className="w-3 pb-2 invert-[0.6]" />
+                            <img
+                                src={d.filter.bimg}
+                                className="w-3 pb-2 invert-[0.6]"
+                                alt="Brand"
+                            />
                             <input
                                 type="text"
                                 placeholder="Search Brand"
@@ -105,7 +113,7 @@ export const LeftSection: React.FC = () => {
                     <div className="flex flex-shrink-0 flex-grow-0 w-[280px] max-w-[280px] gap-1 p-4 border-b justify-between">
                         <div className="flex">
                             <input type="checkbox" />
-                            <img src={d.filter.assure} className="w-20 pl-2" />
+                            <img src={d.filter.assure} className="w-20 pl-2" alt="Assured" />
                         </div>
                         <div className="flex shadow-black rounded-[50%] w-5 p-1 border h-5 relative">
                             <p className="absolute left-[6px] top-[-2px]">?</p>
@@ -147,8 +155,7 @@ export const LeftSection: React.FC = () => {
             ))}
         </div>
     );
-}
+};
 
 
-
-
+ 

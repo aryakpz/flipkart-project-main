@@ -4,6 +4,7 @@ import { AdminNav } from "./adminNav"
 
 export const Dashboard = () => {
     const { data } = useGetDashBoard();
+    console.log(data,"sadclniv0p")
     const { data: tabledata } = useDetailsFetch();
     const trData = tabledata?.data[0];
     const attributes = trData?.table;
@@ -22,7 +23,7 @@ export const Dashboard = () => {
                         )
                         )}
                     </tr>
-                    {data?.resp.map((item: any, index: number) => (
+                    {data?.map((item: any, index: number) => (
                         <tr key={index} className="border-black  ">
                             <td className="border border-black ">
                                 <span className="flex p-2 ">{item.Oid}</span>
