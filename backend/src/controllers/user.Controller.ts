@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv"
-import { displayProduct, filterdbdata, getSingleProduct, sortingDb } from "../services/user.Services";
+import { displayProduct, filterdbdata, getSingleProduct, searchData, sortingDb } from "../services/user.Services";
 dotenv.config()
 
 export const viewProduct = async (req: Request, res: Response, next: NextFunction) => {
@@ -40,7 +40,7 @@ export const filter = async (req: Request, res: Response, next: NextFunction) =>
             successs: true,
             data: { filterdata }
         })
-    } catch (err) {
+    } catch (err) {    
         next(err)
     }
 }
@@ -59,13 +59,23 @@ export const sort = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-export const search = async (req: Request, res: Response, next: NextFunction) => {
+export const search = async (req: any, res: any, next: NextFunction) => {
     try {
-        const val = req.body.search;
-        console.log(val, "backend")
+        const val = req.body.search;       
+        const resp = await searchData(val)
+        console.log(resp)
+        return res.status(200).json({
+            message: "searched successfully",
+            success: true,
+            data: { resp }
+        })
+        
     }
-    catch (err) {
+    catch (err) {           
         next(err)
     }
 }
- 
+      
+                 
+
+

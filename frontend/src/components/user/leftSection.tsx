@@ -10,12 +10,13 @@ export const LeftSection: React.FC = () => {
     const { data: detailsdata } = useDetailsFetch();
     const { filter } = useFilter();
     const { setFilteredData } = useFilterContext();
+    const [brands, setBrands] = useState("")
 
     const [selectedFilters, setSelectedFilters] = useState({
         brand: [] as string[],
         ram: [] as string[],
         rom: [] as string[],
-        price: { min: 0, max: 0 },
+        price: { min: '', max: '' },
     });
 
     const Brands = Array.from(
@@ -28,6 +29,10 @@ export const LeftSection: React.FC = () => {
         new Set(data?.viewProduct?.flatMap((item) => item.rom))
     );
 
+    const handleBrand=(e:React.ChangeEvent<HTMLInputElement>)=>{
+      setBrands(e.target.value.toLowerCase())
+
+    }
     const handleCheckboxChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         category: "brand" | "ram" | "rom"
@@ -37,7 +42,6 @@ export const LeftSection: React.FC = () => {
 
         setSelectedFilters((prev) => {
             const updatedFilters = { ...prev };
-
             if (isChecked) {
                 updatedFilters[category].push(value);
             } else {
@@ -49,14 +53,14 @@ export const LeftSection: React.FC = () => {
         })
     };
 
-    const handlePriceChange = (min: number, max: number) => {
+    const handlePriceChange = (min: string, max: string) => {
         setSelectedFilters((prev) => ({
             ...prev,
             price: { min, max }
         }));
-    }; 
-                                       
-    useEffect(() => {                               
+    };
+
+    useEffect(() => {
         const fetchFilteredData = async () => {
             if (
                 selectedFilters.brand.length ||
@@ -93,9 +97,11 @@ export const LeftSection: React.FC = () => {
                                 type="text"
                                 placeholder="Search Brand"
                                 className="text-sm font-f-regular focus:outline-none mb-2 p-1 pl-2"
+                                onChange={(e)=>handleBrand(e)}
                             />
                         </div>
-                        {Brands.map((brand: string, index: number) => (
+                        {Brands.filter((item)=>item.toLowerCase().includes(brands))
+                        .map((brand: string, index: number) => (
                             <div key={index}>
                                 <input
                                     type="checkbox"
@@ -156,6 +162,3 @@ export const LeftSection: React.FC = () => {
         </div>
     );
 };
-
-
- 

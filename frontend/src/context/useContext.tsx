@@ -22,9 +22,9 @@ export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     <FilterContext.Provider value={{ filteredData, setFilteredData }}>
       {children}
     </FilterContext.Provider> 
-  ); 
+  );                                
 };
-                                           
+                                                           
 export const useFilterContext = () => {
   const context = useContext(FilterContext);
   if (!context) {
@@ -32,3 +32,5 @@ export const useFilterContext = () => {
   }
   return context;
 };
+
+ 
