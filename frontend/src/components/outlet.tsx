@@ -11,3 +11,6 @@ export const LogOut: React.FC = () => {
       return <Navigate to="/login" />;
     }
   };
+
+
+  

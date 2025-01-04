@@ -6,7 +6,7 @@ export const useOrderPlace = () => {
     const nav = useNavigate()
     const { mutate } = useMutation({
         mutationFn: async (values: any) => {
-            return await axios.post("http://localhost:5002/admin/order", values)
+            return await axios.post("/api/admin/order", values)
         },
         onSuccess: () => {
             alert("order placed successfully")

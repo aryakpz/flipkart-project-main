@@ -6,9 +6,10 @@ import { useDetailsFetch } from "../../Hooks/useJsonFecth";
 import { useFilterContext } from "../../context/useContext";
 
 export const LeftSection: React.FC = () => {
+
     const { data } = useFetchProduct();
     const { data: detailsdata } = useDetailsFetch();
-    const { filter } = useFilter();
+    const { filtersec } = useFilter();
     const { setFilteredData } = useFilterContext();
     const [brands, setBrands] = useState("")
 
@@ -22,30 +23,31 @@ export const LeftSection: React.FC = () => {
     const Brands = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.brand))
     );
+
     const ramOptions = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.ram))
     );
+
     const romOptions = Array.from(
         new Set(data?.viewProduct?.flatMap((item) => item.rom))
     );
 
-    const handleBrand=(e:React.ChangeEvent<HTMLInputElement>)=>{
-      setBrands(e.target.value.toLowerCase())
+    const handleBrand = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setBrands(e.target.value.toLowerCase())
 
     }
-    const handleCheckboxChange = (
-        e: React.ChangeEvent<HTMLInputElement>,
-        category: "brand" | "ram" | "rom"
-    ) => {
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>, key: "brand" | "ram" | "rom") => {
         const value = e.target.value;
         const isChecked = e.target.checked;
 
         setSelectedFilters((prev) => {
             const updatedFilters = { ...prev };
+
             if (isChecked) {
-                updatedFilters[category].push(value);
+                updatedFilters[key].push(value);
             } else {
-                updatedFilters[category] = updatedFilters[category].filter(
+                updatedFilters[key] = updatedFilters[key].filter(
                     (item) => item !== value
                 );
             }
@@ -68,16 +70,17 @@ export const LeftSection: React.FC = () => {
                 selectedFilters.rom.length ||
                 (selectedFilters.price.min && selectedFilters.price.max)
             ) {
-                const response = await filter(selectedFilters);
+                const response = await filtersec(selectedFilters);
                 if (response) {
-                    setFilteredData(response?.data?.filterdata);
+                    setFilteredData(response);
                 } else {
-                    console.error("Filter API call failed:", response.message);
+                    console.error("Filter API call failed:");
                 }
-            }
+
+            }  
         };
         fetchFilteredData();
-    }, [selectedFilters, filter]);
+    }, [selectedFilters]);
 
     return (
         <div className="bg-white mr-2 mt-2 h-fit">
@@ -97,21 +100,21 @@ export const LeftSection: React.FC = () => {
                                 type="text"
                                 placeholder="Search Brand"
                                 className="text-sm font-f-regular focus:outline-none mb-2 p-1 pl-2"
-                                onChange={(e)=>handleBrand(e)}
+                                onChange={(e) => handleBrand(e)}
                             />
                         </div>
-                        {Brands.filter((item)=>item.toLowerCase().includes(brands))
-                        .map((brand: string, index: number) => (
-                            <div key={index}>
-                                <input
-                                    type="checkbox"
-                                    value={brand}
-                                    checked={selectedFilters.brand.includes(brand)}
-                                    onChange={(e) => handleCheckboxChange(e, "brand")}
-                                />
-                                <label className="font-f-regular text-[13px] pl-[5px]">{brand}</label>
-                            </div>
-                        ))}
+                        {Brands.filter((item) => item.toLowerCase().includes(brands))
+                            .map((brand: string, index: number) => (
+                                <div key={index}>
+                                    <input
+                                        type="checkbox"
+                                        value={brand}
+                                        checked={selectedFilters.brand.includes(brand)}
+                                        onChange={(e) => handleCheckboxChange(e, "brand")}
+                                    />
+                                    <label className="font-f-regular text-[13px] pl-[5px]">{brand}</label>
+                                </div>
+                            ))}
                         <p className="text-flip-blue text-xs font-f-medium pt-2">{d.filter.more}</p>
                     </div>
 
@@ -162,3 +165,4 @@ export const LeftSection: React.FC = () => {
         </div>
     );
 };
+

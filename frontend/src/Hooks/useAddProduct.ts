@@ -6,7 +6,7 @@ export const useAddProducts = () => {
     const token = sessionStorage.getItem("token")
     const { mutate } = useMutation({
         mutationFn: (values: mobileProps) => {
-            return axios.post('http://localhost:5002/admin/addProduct', values, {
+            return axios.post('/api/admin/addProduct', values, {
                 headers: {
                     "content-type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`

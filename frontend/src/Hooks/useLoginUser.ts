@@ -7,7 +7,7 @@ export const useLoginUser = () => {
     const nav = useNavigate()
     const { mutate } = useMutation({
         mutationFn: async (values: userLoginProp) => {
-            return (await (axios.post('http://localhost:5002/admin/login', values))).data
+            return (await (axios.post('/api/admin/login', values))).data
         },
         onSuccess: (data) => {
             const prev = sessionStorage.getItem("prevPage")
