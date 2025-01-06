@@ -3,13 +3,14 @@ import axios from "axios";
 import { responsePropse } from "../Types/type";
 
 export const useFetchProduct = () => {
-
     const { data } = useQuery<responsePropse>({
 
         queryKey: ['mobiles'],
         queryFn: () =>
-            axios.get('http://localhost:5002/user/viewProduct')
+            axios.get('/api/user/viewProduct')
                 .then(res => res.data)
     });
     return { data: data?.data };
-};
+}; 
+
+ 

@@ -16,7 +16,7 @@ export const SortSection: React.FC = () => {
         const sortdata = await sortProduct(id)
         setFilteredData(sortdata);
     };
-
+                                           
     return (
         <div className=" flex pb-2  shadow-2xl font-f-regular  border-b pl-4 flex-col ">
             <div className="font-f-semibold pb-2">{item && item.content} {filteredData.length} {item && item.content1}</div>
@@ -30,5 +30,7 @@ export const SortSection: React.FC = () => {
         </div>
     )
 }
+
+
 
 
