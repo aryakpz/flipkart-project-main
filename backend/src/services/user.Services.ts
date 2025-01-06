@@ -22,10 +22,15 @@ export const getSingleProduct = async (id: any) => {
     return newResult
 }
 
-export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; rom?: string[]; price?: { min: number; max: number } }) => {
+export const filterdbdata = async (values: {
+    brand?: string[];
+    ram?: string[];
+    rom?: string[];
+    price?: { min: string; max: string };
+}) => {
     const filterQuery: any = {};
-
-    if (values?.brand && Array.isArray(values.brand) && values.brand.length > 0) {
+    // Brand filter
+    if (values?.brand ) {
         filterQuery.brand = {
             [Op.or]: values.brand.map(value => ({
                 [Op.iLike]: `%${value}%`
@@ -33,7 +38,8 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
         };
     }
 
-    if (values?.ram && Array.isArray(values.ram) && values.ram.length > 0) {
+    // RAM filter
+    if (values?.ram  ) {
         filterQuery.ram = {
             [Op.or]: values.ram.map(ram => ({
                 [Op.iLike]: `%${ram}%`
@@ -41,14 +47,28 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
         };
     }
 
-    if (values?.rom && Array.isArray(values.rom) && values.rom.length > 0) {
+    // ROM filter
+    if (values?.rom ) {
         filterQuery.rom = {
             [Op.or]: values.rom.map(rom => ({
                 [Op.iLike]: `%${rom}%`
             }))
         };
+    }                                                                     
+               
+    // Price filter
+    if (values?.price) {
+        const minPrice = parseFloat(values.price.min);
+        const maxPrice = parseFloat(values.price.max);
+
+        if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+            filterQuery.price = {
+                [Op.between]: [minPrice, maxPrice]
+            };
+        }
     }
 
+                             
     const filteredProducts = await PRODUCTSTABLE.findAll({
         where: filterQuery,
     });
@@ -56,9 +76,10 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
     const newdata = filteredProducts.map((item) => ({
         ...item.dataValues,
         link: `http://localhost:5002/${item.image}`
-    }))
+    }));
     return newdata;
 };
+
 
 export const sortingDb = async (id: string) => {
     let result: Array<[string, 'ASC' | 'DESC']> = [];
@@ -84,9 +105,14 @@ export const sortingDb = async (id: string) => {
         ...item.dataValues,
         link: `http://localhost:5002/${item.image}`
     }));
-
     return newres;
 };
 
 
-
+export const searchData = async (val: string) => {
+    console.log(val)
+    const data = await PRODUCTSTABLE.findOne({
+        where:{name:val}
+    })
+    return { data }
+}

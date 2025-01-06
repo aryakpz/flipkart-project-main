@@ -15,29 +15,28 @@ export const ViewProduct: React.FC = () => {
     const { getSingleProduct } = useSingleItem()
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-
     const produts = filteredData.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     );
-
+                                                       
     const handlePrevious = () => {
-        if (currentPage > 1) {
+        if (currentPage > 1) {                                  
             setCurrentPage((prevPage) => prevPage - 1);
-        }
-    };
-
+        }                                                    
+    };                                                         
+            
     const handleNext = () => {
         if (currentPage < totalPages) {
             setCurrentPage((prevPage) => prevPage + 1);
-        }
-    };
+        }                                                                                            
+    };                                                     
 
     const handlePageChange = (pageNumber: number) => {
-        setCurrentPage(pageNumber);
-    };             
-
-    return (
+        setCurrentPage(pageNumber);                                                                                                                                        
+    };                          
+                                          
+    return (                                                                   
         <div className="flex flex-grow overflow-auto bg-white flex-col h-screen ">
             <div className="p-4 w-full box-border">
                 {produts.length > 0 ? produts.map((item: mobileProps, index: number) => (
