@@ -77,7 +77,7 @@ export const LeftSection: React.FC = () => {
                     console.error("Filter API call failed:");
                 }
 
-            }  
+            }
         };
         fetchFilteredData();
     }, [selectedFilters]);
