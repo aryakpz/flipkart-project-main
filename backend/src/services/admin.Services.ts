@@ -3,8 +3,9 @@ import { PRODUCTSTABLE } from "../models/mobile.model";
 import { USERTABLE } from "../models/user.model"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
-import { phoneProps } from "../Types/type";
-import { Op, Value } from "@sequelize/core";
+import { adminProps, ordeProps, phoneProps } from "../Types/type";
+import { Op } from "@sequelize/core";
+import { USERORDERTABLE } from "../models/userOrder.model";
 
 export const getAllUser = async () => {
     const users = await USERTABLE.findAll()
@@ -16,8 +17,8 @@ export const hashingPassword = async (password: string) => {
     return newPass
 }
 
-export const addAdminToDb = async (name: string, email: string, username: string, password: string) => {
-    const insert = await ADMINTABLE.create({ name, email, username, password })
+export const addAdminToDb = async (details: adminProps) => {
+    const insert = await ADMINTABLE.create({ ...details })
     return insert
 }
 
@@ -73,13 +74,12 @@ export const deleteProduct = async (id: string) => {
     return del
 }
 
-
 //=============================== data filtering section ====================================//
 
 export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; rom?: string[] }) => {
     const filterQuery: any = {};
 
-    
+
     if (values?.brand && Array.isArray(values.brand) && values.brand.length > 0) {
         filterQuery.brand = {
             [Op.or]: values.brand.map(value => ({
@@ -107,42 +107,50 @@ export const filterdbdata = async (values: { brand?: string[]; ram?: string[]; r
     const filteredProducts = await PRODUCTSTABLE.findAll({
         where: filterQuery,
     });
+
     const newdata = filteredProducts.map((item) => ({
         ...item.dataValues,
         link: `http://localhost:5002/${item.image}`
     })
     )
-    return newdata; 
+    return newdata;
 
 };
 
-
-
 export const sortingDb = async (id: string) => {
     let result: Array<[string, 'ASC' | 'DESC']> = [];
-  
+
     switch (id) {
-      case "low":
-        result = [['price', 'ASC']];
-        break;
-      case "high":
-        result = [['price', 'DESC']];
-        break;
-      case "new":
-        result=[['createdAt','DESC']]
-        break;
-      default:
-        result = []; 
+        case "low":
+            result = [['price', 'ASC']];
+            break;
+        case "high":
+            result = [['price', 'DESC']];
+            break;
+        case "new":
+            result = [['createdAt', 'DESC']]
+            break;
+        default:
+            result = [];
     }
-      const products = await PRODUCTSTABLE.findAll({
+    const products = await PRODUCTSTABLE.findAll({
         order: result
-      });
-                                       
-      const newres = products.map((item) => ({
+    });
+
+    const newres = products.map((item) => ({
         ...item.dataValues,
-        link: `http://localhost:5002/${item.image}` 
-      }));
-  
-      return newres;
-  };
-  
+        link: `http://localhost:5002/${item.image}`
+    }));
+
+    return newres;
+};
+
+export const ProderOrder = async (order: ordeProps) => {
+    const result = await USERORDERTABLE.create({ ...order })
+    return result;
+}
+
+export const getDash = async () => {
+    const res = await USERORDERTABLE.findAll()
+    return res;
+}

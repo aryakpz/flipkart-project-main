@@ -1,6 +1,11 @@
 import axios from "axios"
 
 export const getDetails =async ()=>{
-    return axios.get('data/data.json')
+    return  await axios.get('data/data.json')
 }
 
+
+export const getlog = () => {
+    const val = sessionStorage.getItem("token");
+    return !!val;
+  };

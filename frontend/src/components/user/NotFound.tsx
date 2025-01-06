@@ -4,7 +4,6 @@ import { useDetailsFetch } from "../../Hooks/useJsonFecth";
 
 export const NotFound: React.FC = () => {
     const {data}=useDetailsFetch()
-    console.log(data?.data,'lkjnbhvghb')
     return (
         <div className="w-full justify-center text-center p-14  flex flex-col h-screen bg-white">
             {data?.data.map((item:any) => (

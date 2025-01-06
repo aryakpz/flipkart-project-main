@@ -7,6 +7,7 @@ import { useFilterContext } from "../../context/useContext";
 import { useNavigate } from "react-router-dom";
 import { PaginationControls } from "./paginationSection";
 import { NotFound } from "./NotFound";
+// import { getSinglePage } from "../../Hooks/useSingelPage";
 
 export const ViewProduct: React.FC = () => {
     const nav = useNavigate()
@@ -37,6 +38,12 @@ export const ViewProduct: React.FC = () => {
         setCurrentPage(pageNumber);
     };
 
+    localStorage.clear()
+    const getSinglePage = (item: mobileProps) => {
+        localStorage.setItem('items',JSON.stringify(item))
+        nav('/singlePage')
+    }
+
     useEffect(() => {
         setCurrentPage(1)
     }, [filteredData])
@@ -47,7 +54,7 @@ export const ViewProduct: React.FC = () => {
             <div className="p-4 w-full box-border">
                 {produts.length > 0 ? produts.map((item: mobileProps, index: number) => (
                     <>
-                        <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular " onClick={() => { nav('/singlePage', { state: item }) }}>
+                        <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular " onClick={() => { getSinglePage(item) }}>
                             <div className="relative w-52 ">
                                 <div className="w-52 h-52 mx-auto relative">
                                     <img className=" absolute b-0 t-0 l-0 r-0 max-w-full max-h-full  opacity-100 mx-auto" alt={item.link} src={item.link} />
@@ -99,9 +106,7 @@ export const ViewProduct: React.FC = () => {
 
                     </>
                 )) :
-
                     <NotFound />
-
                 }
 
             </div>

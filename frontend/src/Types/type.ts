@@ -73,3 +73,13 @@ export type sortprops={
     class:string,
     id:string
 }
+
+
+export type orderProps={
+    id:number,
+    name:string,
+    price:number,
+    count:number,
+    newPrice:number,
+    change:string 
+}
