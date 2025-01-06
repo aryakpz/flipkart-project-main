@@ -48,6 +48,7 @@ export const AdminLogin: React.FC = () => {
                     </div>
                 </Form>
             </Formik>
+            <a href="/adminsign" className="text-sm hover:text-flip-blue font-f-regular ">Signin</a>
             
         </div>
 

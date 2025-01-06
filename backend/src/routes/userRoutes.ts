@@ -1,10 +1,10 @@
-import { loginUser, postUser } from "../controllers/user.Controller"
-import { SigninValidation } from "../middleware/validaitonMiddleware"
-import { UserLogin, UserSchema } from "../schema/user.Schema"
+import { filter, search, singleProduct, sort, viewProduct } from "../controllers/user.Controller"
 
+const express = require('express')
+export const userRoutes = express.Router()
 
-const express =require('express')
- export const userRoutes = express.Router()
-
- userRoutes.post('/post',SigninValidation(UserSchema),postUser)
- userRoutes.post('/login',loginUser)
+userRoutes.get('/viewProduct', viewProduct)
+userRoutes.get('/singleProduct/:id',singleProduct)
+userRoutes.post('/sort', sort)
+userRoutes.post('/filter', filter)
+userRoutes.post('/search', search)

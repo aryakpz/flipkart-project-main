@@ -1,38 +1,39 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDetailsFetch } from "../../Hooks/useJsonFecth";
 import icon from "/assets/icons/angle-right-solid.svg";
 import star from "/assets/icons/whitestar.svg";
 import asure from "/assets/images/image.png";
 
-type right = { 
-    val: string,                          
+type right = {
+    val: string,
     icon: string
 }
-            
+
 export const SingleProductPage: React.FC = () => {
     const nav = useNavigate();
+    const loc = useLocation()
     const { data } = useDetailsFetch();
     const details = data?.data[0]
     const right = details?.right;
-    const item=JSON.parse(localStorage.getItem('items')|| '{}'  )
-    
+    const item = loc.state;
+
     const buttonClick = () => {
         sessionStorage.setItem("prevPage", location.pathname);
-        const token = sessionStorage.getItem("token");          
-        if (!token) {       
-            nav('/login')                             
-        }                              
+        const token = sessionStorage.getItem("token");
+        if (!token) {
+            nav('/login')
+        }
         else {
-            nav('/productBuy',{state:item})                                                                     
-        }                               
-    }            
-                    
-    return (          
+            nav('/productBuy', { state: item })
+        }
+    }
+
+    return (
         <div className=" flex bg-white p-9 w-full">
             <div className="text-xs font-f-regular flex text-gray-600 cursor-pointer">
-                {item &&                
-                    <div className="flex flex-row">                   
+                {item &&
+                    <div className="flex flex-row">
                         <div >
                             <img src={item.link} className="px-10 py-5 border" />
                             <div className="flex justify-between font-f-semibold text-sm tracking-tighter py-5 text-white gap-2">
@@ -82,7 +83,7 @@ export const SingleProductPage: React.FC = () => {
                                 <span className="text-gray-700 py-1">• {item.battery} Battery </span>
                                 <span className="text-gray-700 py-1">• {item.warranty} </span>
                                 <span className="text-sm  flex">• Upto <p className="px-2 font-bold">₹{item.exchange} </p>off on exchange</span>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 }
@@ -90,5 +91,5 @@ export const SingleProductPage: React.FC = () => {
         </div>
     )
 }
-              
+
 //f=w-m*a 

@@ -7,13 +7,19 @@ export const useLoginUser = () => {
     const nav = useNavigate()
     const { mutate } = useMutation({
         mutationFn: async (values: userLoginProp) => {
-            return (await (axios.post('http://localhost:5002/user/login', values))).data
+            return (await (axios.post('http://localhost:5002/admin/login', values))).data
         },
         onSuccess: (data) => {
             const prev = sessionStorage.getItem("prevPage")
-            nav(prev || '/')
             sessionStorage.setItem("token", data.data.token)
+            sessionStorage.setItem("role", data.data.role)
             sessionStorage.setItem("name", data.data.username)
+            if (sessionStorage.getItem("role") === 'admin') {
+                nav('/adminpage')
+            }
+            else {
+                nav(prev || '/')
+            }
         },
         onError() {
             alert("Invalid username or password!")
@@ -27,4 +33,3 @@ export const useLoginUser = () => {
     }
 }
 
-   

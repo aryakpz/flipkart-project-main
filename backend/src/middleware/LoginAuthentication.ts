@@ -3,7 +3,6 @@ import { AnyZodObject,z } from "zod"
 
 export const loginAuthentication=(schema:AnyZodObject)=>{
     (req:Request,res:Response,next:NextFunction)=>{
-        console.log(777)
         try{
             schema.parse(req.body)
             next()

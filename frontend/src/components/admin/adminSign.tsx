@@ -1,10 +1,8 @@
 import { ErrorMessage, Field, Formik, Form } from "formik";
 import React from "react";
 import { validationSchema } from "../../schema/validationSchema";
-import { useAdminSign } from "../../Hooks/useAdminSign";
 
 export const AdminSign: React.FC = () => {
-    const {addAdmin}=useAdminSign()
     const initialValues = {
         name: "",
         email: "",
@@ -13,7 +11,8 @@ export const AdminSign: React.FC = () => {
     }
 
     const onSubmit = (values: typeof initialValues) => {
-        addAdmin(values)
+        // addAdmin(values)
+        console.log(values)
     }
 
     return (
@@ -68,6 +67,7 @@ export const AdminSign: React.FC = () => {
                     </div>
                 </Form>
             </Formik>
+            <a href="/admin" className="text-sm hover:text-flip-blue font-f-regular ">Login</a>
         </div>
 
     )

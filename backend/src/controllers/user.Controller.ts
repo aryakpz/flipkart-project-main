@@ -1,33 +1,71 @@
 import { Request, Response, NextFunction } from "express";
-import { addUserToDb, getSingleUser, hashingPassword } from "../services/user.Services";
 import dotenv from "dotenv"
+import { displayProduct, filterdbdata, getSingleProduct, sortingDb } from "../services/user.Services";
 dotenv.config()
 
-export const postUser = async (req: Request, res: Response, next: NextFunction) => {
+export const viewProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, email, username, password } = req.body
-        const newPassword = await hashingPassword(password)
-        const user = await addUserToDb(name, email, username, newPassword)
-        res.status(201).json({
-            message: "User Added Successfull!",
+        const viewProduct = await displayProduct();
+        return res.status(201).json({
+            message: "successfuly",
             success: true,
-            data: { user }
-        });
+            data: { viewProduct }
+        })
     } catch (err) {
         next(err)
     }
 }
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+export const singleProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { username, password } = req.body
-        const user = await getSingleUser(username, password)
-        res.status(200).json({
-            message: "Logged in SuccessFully",
-            success: true,
-            data: { username: user.username, token: user.token }
-        });
+        const { id } = req.params;
+        const result = await getSingleProduct(id);
+        return res.status(201).json({
+            message: "fetched successfully",
+            success: "true",
+            data: { result }
+        })
+
     } catch (err) {
         next(err)
     }
 }
+
+export const filter = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const values = req.body;
+        const filterdata = await filterdbdata(values)
+        return res.status(200).json({
+            message: "filterd successfully",
+            successs: true,
+            data: { filterdata }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const sort = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.body;
+        const resp = await sortingDb(id);
+        return res.status(200).json({
+            message: "sorted successfully",
+            success: true,
+            data: resp
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const search = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const val = req.body.search;
+        console.log(val, "backend")
+    }
+    catch (err) {
+        next(err)
+    }
+}
+ 

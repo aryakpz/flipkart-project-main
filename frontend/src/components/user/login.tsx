@@ -9,7 +9,7 @@ export const Login: React.FC = () => {
         username: "",
         password: "",
     }
-
+    sessionStorage.clear()
     const onSubmit = (values: typeof initialValues) => {
         loginUser(values)
     }

@@ -26,7 +26,7 @@ export type phoneProps = {
 }
 
 
-export type ordeProps = {
+export type ordeProps = {       
     user: string
     id: number
     name: string
@@ -37,3 +37,9 @@ export type ordeProps = {
 }
 
 
+export type userProps={
+    username:string;
+    password:string;
+    role:"admin"|"user"
+
+}

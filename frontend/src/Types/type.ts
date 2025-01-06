@@ -23,10 +23,11 @@ export type dropProps = {
 }
 
 export type userSignProps = {
-    name: string,
-    email: string,
+    // name: string,
+    // email: string,
     username: string,
-    password: string
+    password: string,
+    role:"admin"|"user"
 }
 
 export type userLoginProp = {
@@ -35,6 +36,7 @@ export type userLoginProp = {
 }
 
 export type mobileProps = {
+    id:any;
     link: string;
     name: string;
     color: string;

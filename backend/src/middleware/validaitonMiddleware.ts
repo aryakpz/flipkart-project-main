@@ -1,10 +1,8 @@
 import { Request,Response,NextFunction } from "express";
 import { AnyZodObject,z } from "zod";
 
-
 export const SigninValidation=(schema:AnyZodObject)=>
 (req:Request,res:Response,next:NextFunction)=>{
-    // console.log(req.body)
     try{
         schema.parse(req.body);
         next();

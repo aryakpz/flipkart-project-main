@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { mobileProps } from "../../Types/type";
 import star from "/assets/icons/whitestar.svg";
 import heart from "/assets/icons/heart.svg";
-import assure from "/assets/images/image.png"
+import assure from "/assets/images/image.png";
 import { useFilterContext } from "../../context/useContext";
-import { useNavigate } from "react-router-dom";
 import { PaginationControls } from "./paginationSection";
 import { NotFound } from "./NotFound";
-// import { getSinglePage } from "../../Hooks/useSingelPage";
+import { useSingleItem } from "../../Hooks/useSingleProduct";
 
 export const ViewProduct: React.FC = () => {
-    const nav = useNavigate()
     const { filteredData } = useFilterContext()
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 3;
-    // sessionStorage.clear()
+    const { getSingleProduct } = useSingleItem()
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
 
     const produts = filteredData.slice(
         (currentPage - 1) * itemsPerPage,
@@ -36,25 +35,14 @@ export const ViewProduct: React.FC = () => {
 
     const handlePageChange = (pageNumber: number) => {
         setCurrentPage(pageNumber);
-    };
-
-    localStorage.clear()
-    const getSinglePage = (item: mobileProps) => {
-        localStorage.setItem('items',JSON.stringify(item))
-        nav('/singlePage')
-    }
-
-    useEffect(() => {
-        setCurrentPage(1)
-    }, [filteredData])
-
+    };             
 
     return (
         <div className="flex flex-grow overflow-auto bg-white flex-col h-screen ">
             <div className="p-4 w-full box-border">
                 {produts.length > 0 ? produts.map((item: mobileProps, index: number) => (
                     <>
-                        <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular " onClick={() => { getSinglePage(item) }}>
+                        <div key={index} className="pt-6 pb-7 pl-6 flex border-b shadow-s font-f-regular " onClick={() => { getSingleProduct(item.id) }}>
                             <div className="relative w-52 ">
                                 <div className="w-52 h-52 mx-auto relative">
                                     <img className=" absolute b-0 t-0 l-0 r-0 max-w-full max-h-full  opacity-100 mx-auto" alt={item.link} src={item.link} />
@@ -78,7 +66,7 @@ export const ViewProduct: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="mt-4 text-xs font-f-regular font-normal pl-0 flex flex-col">
-                                        <span className="text-gray-700 py-1">• {item.ram}RAM and {item.rom}ROM</span>
+                                        <span className="text-gray-700 py-1">• {item.ram} RAM and {item.rom} ROM</span>
                                         <span className="text-gray-700 py-1">• {item.screen}</span>
                                         <span className="text-gray-700 py-1">• {item.frontcamera} Rear camera | {item.backcamera} back camera</span>
                                         <span className="text-gray-700 py-1">• {item.processor} </span>
@@ -103,14 +91,12 @@ export const ViewProduct: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-
-                    </>
+                    </>                                                                                      
                 )) :
-                    <NotFound />
+                    <NotFound />          
                 }
-
             </div>
-            {produts.length > 0 ?
+            {produts.length > 0 && (
                 <PaginationControls
                     currentPage={currentPage}
                     totalPages={totalPages}
@@ -118,14 +104,10 @@ export const ViewProduct: React.FC = () => {
                     onNext={handleNext}
                     onPageChange={handlePageChange}
                 />
-                : <p></p>
-            }
-        </div>
+            )}
+        </div> 
     );
 };
-
-
-
 
 
 
