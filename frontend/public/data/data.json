@@ -51,11 +51,85 @@
                 "icon": "assets/icons/angle-down-solid.svg"
             }
         ],
-        "common":{
-            "star":"assets/icons/whitestar.svg",
-            "heart":"assets/icons/heart.svg",
-            "assure":"https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png"
-              
-        }
+        "star": "assets/icons/whitestar.svg",
+        "heart": "assets/icons/heart.svg",
+        "assure": "https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png",
+        "right": [
+            {
+                "val": "Home",
+                "icon": "assets/icons/angle-right-solid.svg"
+            },
+            {
+                "val": "Mobiles & Accessories",
+                "icon": "assets/icons/angle-right-solid.svg"
+            },
+            {
+                "val": "Mobiles",
+                "icon": "assets/icons/angle-right-solid.svg"
+            }
+        ],
+        "filter": {
+            "filter": "Filters",
+            "clear": "CLEAR ALL",
+            "category": "CATEGORIES",
+            "image": "assets/icons/leftarrowsmall.svg",
+            "access": "Mobiles & Accessories",
+            "mobile": "Mobiles",
+            "price": "PRICE",
+            "min": [
+                "₹Min",
+                10000,
+                15000,
+                20000,
+                30000
+            ],
+            "max": [
+                "30000+",
+                10000,
+                15000,
+                20000,
+                30000
+            ],
+            "brand": "BRAND",
+            "bimg": "assets/icons/blacksearch.svg",
+            "more": "175 MORE",
+            "toparrow": "assets/icons/angle-up-solid.svg",
+            "assure": "/assets/images/image.png",
+            "ram": "RAM",
+            "rom": "INTERNAL STORAGE"
+        },
+        "content": "Showing 1 – 24 of ",
+        "content1": "results for \"mobiles\"",
+        "sortsec": {
+            "name": "Sort By",
+            "id": "sort"
+        },
+        "link": [
+            {
+                "name": "Relevance",
+                "id": "relevance",
+                "class": "nonactive"
+            },
+            {
+                "name": "Popularity",
+                "id": "popularity",
+                "class": "nonactive"
+            },
+            {
+                "name": "Price -- Low to High",
+                "id": "low",
+                "class": "nonactive"
+            },
+            {
+                "name": "Price -- High to Low",
+                "id": "high",
+                "class": "nonactive"
+            },
+            {
+                "name": "Newest First",
+                "id": "new",
+                "class": "nonactive"
+            }
+        ]
     }
 ]

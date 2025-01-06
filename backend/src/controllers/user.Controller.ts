@@ -4,7 +4,6 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export const postUser = async (req: Request, res: Response, next: NextFunction) => {
-    console.log(5, req.body)
     try {
         const { name, email, username, password } = req.body
         const newPassword = await hashingPassword(password)

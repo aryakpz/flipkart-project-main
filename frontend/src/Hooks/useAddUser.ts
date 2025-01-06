@@ -7,7 +7,6 @@ export const useAddUser = () => {
     const navigate = useNavigate();
     const { mutate } = useMutation({
         mutationFn: async (values: userSignProps) => {
-            // console.log(values, 99);
             const response = await axios.post("http://localhost:5002/user/post", values);
             return response.data; 
         },
