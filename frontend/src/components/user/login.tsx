@@ -48,6 +48,11 @@ export const Login: React.FC = () => {
                     </div>
                 </Form>
             </Formik>
+            <div>
+                <p className="font-f-regular text-xs text-gray-500 pt-8">
+                    <a href="/sign" className="text-flip-blue">SignIn </a>
+                    if You dont have an account?</p>
+            </div>
         </div>
 
     )

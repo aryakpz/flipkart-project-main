@@ -1,12 +1,27 @@
 import React, { useState } from "react";
 import { useDetailsFetch } from "../../Hooks/useJsonFecth";
 import { productPropType } from "../../Types/type";
+import { useNavigate } from "react-router-dom";
+import { useSearch } from "../../Hooks/useSearch";
 
 export const NavBar: React.FC = () => {
-    const { data } = useDetailsFetch()
-    const [search,setSearch]=useState('')
+    const nav = useNavigate();
+    const { data } = useDetailsFetch();
+    const [search, setSearch] = useState('');
+    const { searchProduct } = useSearch();
+    const handleClick = () => {
+        sessionStorage.setItem("prevPage", location.pathname);
+        nav('/login');
+    }
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        setSearch(val);
+        searchProduct(val);
+    };
+
     return (
-        <div className="fixed w-full top- text-white flex h-[56px]  overflow-hidden z-z-index bg-flip-blue pl-30px ">
+        <div className="fixed w-full text-white flex h-[56px]  overflow-hidden z-z-index bg-flip-blue pl-30px ">
             {data && data.data.map((item: productPropType, index: number) =>
                 <React.Fragment key={index}>
                     <div className="h-full min-w-[124px]"></div>
@@ -24,12 +39,12 @@ export const NavBar: React.FC = () => {
                         <div className="flex mt-[-1px] mr-[29px] mb-[-2px] ml-[12px] min-w-[304px] w-[calc(100% -540px)] bg-bg-white box-border rounded-[1px] px-14px py-0 flex-auto pr-[13px] h-[36px] max-w-[564px] justify-between shadow-sm">
                             <input
                                 className="text-text-color border-none w-full text-[14.5px] font-f-regular tracking-[-0.29px] h-[36px] overflow-hidden bg-transparent focus:outline-none pl-3"
-                                placeholder="Search for products , brands and more" 
+                                placeholder="Search for products , brands and more"
                                 value={search}
-                                onChange={(e)=>setSearch(e.target.value)}/>
+                                onChange={(e) => handleSearch(e)} />
                             <img src={item.nav.search} className="my-[19.4px] w-[19.5px] h-[19.5px] pt-0 mt-[10px]" />
                         </div>
-                        <button className="border-none bg-white text-flip-blue mb-[4px] font-semibold pt-[5.5px] pl-[39.9px]  pr-[40.3px] shadow-sm mt-2px text-[15.7px] font-f-regular tracking-[0.099px] h-[35px]">
+                        <button className="border-none bg-white text-flip-blue mb-[4px] font-semibold pt-[5.5px] pl-[39.9px]  pr-[40.3px] shadow-sm mt-2px text-[15.7px] font-f-regular tracking-[0.099px] h-[35px]" onClick={handleClick}>
                             {item.nav.login}
                         </button>
                         <div className="mx-[19.4px] pt-2 min-w-max pl-[21px]  font-f-regular font-semibold text-[15.35px] tracking-[0.13]px ">
@@ -50,3 +65,6 @@ export const NavBar: React.FC = () => {
         </div>
     )
 }
+
+
+  

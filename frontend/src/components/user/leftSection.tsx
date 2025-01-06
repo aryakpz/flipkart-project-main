@@ -7,7 +7,7 @@ import { useFilterContext } from "../../context/useContext";
 
 export const LeftSection: React.FC = () => {
     const { data } = useFetchProduct();
-    const { data: detailsdata } = useDetailsFetch()
+    const { data: detailsdata } = useDetailsFetch();
     const { filter } = useFilter();
     const { setFilteredData } = useFilterContext();
 
@@ -64,10 +64,13 @@ export const LeftSection: React.FC = () => {
         ) {
             fetchFilteredData();
         }
-    }, [selectedFilters, filter, setFilteredData]);
+        // else {
+        //     setFilteredData(data?.viewProduct || filteredData)
+        // }
+    }, [selectedFilters, filter, data]);
 
     return (
-        <div className="bg-white mr-2 mt-2">
+        <div className="bg-white mr-2 mt-2 h-fit ">
 
             {detailsdata?.data.map((d: any) => (
                 <React.Fragment>
@@ -144,5 +147,8 @@ export const LeftSection: React.FC = () => {
             ))}
         </div>
     );
-};
+}
+
+
+
 

@@ -6,20 +6,25 @@ import axios from "axios";
 export const useLoginUser = () => {
     const nav = useNavigate()
     const { mutate } = useMutation({
-        mutationFn: (values: userLoginProp) => {
-            return axios.post('http://localhost:5002/user/login', values)
+        mutationFn: async (values: userLoginProp) => {
+            return (await (axios.post('http://localhost:5002/user/login', values))).data
         },
-        onSuccess:()=>{
-            nav('/main')
+        onSuccess: (data) => {
+            const prev = sessionStorage.getItem("prevPage")
+            nav(prev || '/')
+            sessionStorage.setItem("token", data.data.token)
+            sessionStorage.setItem("name", data.data.username)
         },
-        onError(){
+        onError() {
             alert("Invalid username or password!")
         }
     })
-    const loginUser=(values:userLoginProp)=>{
+    const loginUser = (values: userLoginProp) => {
         mutate(values)
     }
     return {
-          loginUser 
+        loginUser
     }
 }
+
+   

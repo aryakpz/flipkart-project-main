@@ -7,7 +7,7 @@ type right = {
     val: string,
     icon: string
 }
-
+                     
 export const RightSection: React.FC = () => {
     const { data } = useDetailsFetch();
     const item = data?.data[0]
@@ -28,7 +28,7 @@ export const RightSection: React.FC = () => {
                             ))}
                         </div>
                     </div>
-                    <SortSection/>
+                    <SortSection />
                 </React.Fragment>
                 <ViewProduct />
             </div>

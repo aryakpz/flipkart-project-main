@@ -11,7 +11,7 @@ export const useAddUser = () => {
             return response.data; 
         },
         onSuccess: () => {
-            navigate("/login");
+            navigate("/");
         },
         onError: (error: any) => {
             console.error("Error adding user:", error); 
@@ -20,7 +20,14 @@ export const useAddUser = () => {
     });
     const addUser = (values: userSignProps) => {
         mutate(values); 
-    };
-
+    }; 
     return { addUser };
 };
+
+
+
+
+
+
+
+            

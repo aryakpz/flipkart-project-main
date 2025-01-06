@@ -4,7 +4,7 @@ import { validationSchema } from "../../schema/validationSchema";
 import { useAddUser } from "../../Hooks/useAddUser";
 
 export const SignIn: React.FC = () => {
-    const {addUser}=useAddUser()
+    const { addUser } = useAddUser()
     const initialValues = {
         name: "",
         email: "",
@@ -68,6 +68,7 @@ export const SignIn: React.FC = () => {
                     </div>
                 </Form>
             </Formik>
+            <p className="text-flip-blue font-f-regular text-xs"><a href="/login">Login</a> </p>
         </div>
 
     )

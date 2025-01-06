@@ -120,7 +120,7 @@
                 "id": "low",
                 "class": "nonactive"
             },
-            {
+            { 
                 "name": "Price -- High to Low",
                 "id": "high",
                 "class": "nonactive"
@@ -130,6 +130,11 @@
                 "id": "new",
                 "class": "nonactive"
             }
-        ]
+        ],
+        "notfound": {
+            "img": "https://static-assets-we…earch-results_2353c5.png",
+            "sorry": "Sorry, no results found!",
+            "please": "Please check the spelling for something else"
+        }
     }
 ]
